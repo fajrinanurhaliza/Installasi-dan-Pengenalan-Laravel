@@ -3,49 +3,61 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/home', function() {
-    return '
-        <h1>Selamat Datang Teman</h1>
-            <a href="/baju wanita">Baju Wanita</a>
-            <br></br>
-            <a href="/baju pria">Baju Pria</a>
-            <br></br>
-            <a href="/sepatu">Sepatu</a>
-            <br></br>
-            <a href="/jilbab">Jilbab</a>
-    ';
+Route::get('/', function(){ 
+   $title = "Homepage"; 
+   
+   return view('web.homepage',['title'=>$title]); 
+}); 
+ 
+Route::get('products', function(){ 
+   $title = "Products"; 
+ 
+   return view('web.products',['title'=>$title]); 
+}); 
+ 
+Route::get('product/{slug}', function($slug){ 
+   $title = "Single Product"; 
+ 
+   return view('web.single_product',['title'=>$title,'slug'=>$slug]); 
+}); 
+ 
+Route::get('categories', function(){ 
+   $title = "Categories"; 
+ 
+   return view('web.categories',['title'=>$title]); 
+}); 
+ 
+Route::get('category/{slug}', function($slug){ 
+   $title = "Single Category"; 
+ 
+   return view('web.single_category',['title'=>$title,'slug'=>$slug]); 
+}); 
+ 
+Route::get('cart', function(){ 
+   $title = "Cart"; 
+ 
+   return view('web.cart',['title'=>$title]); 
+}); 
+ 
+Route::get('checkout', function(){ 
+   $title = "Checkout"; 
+ 
+   return view('web.checkout',['title'=>$title]); 
 });
+#Route::get('/', function () {
+#   return view('welcome');
+#})->name('home');
 
-Route::get('/baju wanita', function() {
-    return 'Ini baju wanita ya';
-});
+#Route::view('dashboard', 'dashboard')
+#   ->middleware(['auth', 'verified'])
+#   ->name('dashboard');
 
-Route::get('/baju pria', function() {
-    return 'Ini baju pria';
-});
+#Route::middleware(['auth'])->group(function () {
+#   Route::redirect('settings', 'settings/profile');
 
-Route::get('/sepatu', function() {
-    return 'Ini sepatu';
-});
-
-Route::get('/jilbab', function() {
-    return 'Ini jilbab';
-});
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
-
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-});
+#  Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
+# Volt::route('settings/password', 'settings.password')->name('settings.password');
+#Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+#});
 
 require __DIR__.'/auth.php';
